@@ -3,7 +3,7 @@ services:
   batch:
     build: .
     volumes:
-     - .:/var/secrets/google/
+     - .:/app
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS=/var/secrets/google/key.json
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/gcs.json
 

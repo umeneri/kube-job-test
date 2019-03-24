@@ -1,0 +1,24 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: gcs-job
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+            - name: google-cloud-key
+              secret:
+                secretName: gcs-key
+          containers:
+            - name: gcs-py
+              image: gcr.io/gcpdev/gcs-py
+              volumeMounts:
+                - name: google-cloud-key
+                  mountPath: /var/secrets/google
+              env:
+                - name: GOOGLE_APPLICATION_CREDENTIALS
+                  value: /var/secrets/google/gcs.json
+          restartPolicy: Never

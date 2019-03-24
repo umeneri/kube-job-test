@@ -1,8 +1,8 @@
-FROM google/cloud-sdk
+FROM python:3.7-alpine
 
-CMD echo "1, 2, 3" > test.csv \
-    && gcloud auth activate-service-account --key-file=/var/secrets/google/gcs.json \
-    && gsutil cp test.csv gs://dev-gke-batch/ \
-    && gsutil ls -l gs://dev-gke-batch/
+WORKDIR /app
+COPY requirements.txt /app
+RUN pip install --upgrade pip && pip install -r requirements.txt
+COPY . /app
+CMD python gcs.py create_object
 # CMD while :; do date; sleep 1; done
-
