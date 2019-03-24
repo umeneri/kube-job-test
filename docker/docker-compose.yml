@@ -1,0 +1,9 @@
+version: '3'
+services:
+  batch:
+    build: .
+    volumes:
+     - .:/var/secrets/google/
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/var/secrets/google/key.json
+
